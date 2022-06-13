@@ -101,13 +101,24 @@ function calculateTotal() {
         return total;
 };
 
-console.log(calculateTotal());
 
 // Exercise 4
 function generateCart() {
     // Using the "cartlist" array that contains all the items in the shopping cart, 
     // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
-}
+    for (let i=0; i<cartList.length; i++){
+       let exist = cart.find((p)=>p.id === cartList[i].id);
+       if(exist){
+        cart[i].quantity ++ ;
+       } else {
+        cartList[i].quantity = 1;
+        cart.push(cartList[i]);
+       };           
+       
+   } 
+
+};
+
 
 // Exercise 5
 function applyPromotionsCart() {
