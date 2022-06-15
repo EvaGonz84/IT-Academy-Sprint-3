@@ -68,7 +68,22 @@ var cartList = [
 ];
 
 // Improved version of cartList. Cart is an array of products (objects), but each one has a quantity field to define its quantity, so these products are not repeated.
-var cart = [];
+var cart = [
+    {
+        id: 8,
+        name: 'Lawn-Chiffon Combo',
+        price: 19.99,
+        type: 'clothes',
+        quantity : 2,
+    },
+    {
+        id: 9,
+        name: 'Toddler Frock',
+        price: 9.99,
+        type: 'clothes',
+        quantity:1,
+    }
+];
 
 var total = 0;
 
@@ -139,8 +154,44 @@ for(let i=0; i<cart.length; i++){
 
 // Exercise 6
 function printCart() {
-    // Fill the shopping cart modal manipulating the shopping cart dom
-}
+    const bodyElement = document.getElementById("cart_list");
+    let total = 0;
+    //Loop for of to the array cart and add found products to the "cartModal".
+    for (let products of cart) {
+      const tr = document.createElement("tr");
+      const th = document.createElement("th");
+      th.textContent = products.name;
+      const td1 = document.createElement("td");
+      td1.textContent = `$${products.price}`;
+      const td2 = document.createElement("td");
+      td2.textContent = products.quantity;
+      const td3 = document.createElement("td");
+      td3.textContent = `$${products.quantity * products.price}`;
+  
+      if (products.id === 1 && products.quantity >= 3) {
+        products.price = 10;
+        products.subtotalWithDiscount = products.price * products.quantity;
+        td3.textContent = `$${products.subtotalWithDiscount}`;
+        total += products.subtotalWithDiscount;
+      } else if (products.id === 3 && products.quantity >= 10) {
+        products.price = (5 * (2 / 3)).toFixed(2);
+        products.subtotalWithDiscount = products.price * products.quantity;
+        td3.textContent = `${products.subtotalWithDiscount}`;
+        total += products.subtotalWithDiscount;
+      } else {
+        total += products.quantity * products.price;
+      }
+  
+      tr.appendChild(th);
+      tr.appendChild(td1);
+      tr.appendChild(td2);
+      tr.appendChild(td3);
+      bodyElement.appendChild(tr);
+  
+      document.getElementById("total_price").textContent = total.toFixed(2);
+    }
+  }
+  printCart();
 
 
 // ** Nivell II **
@@ -160,5 +211,5 @@ function removeFromCart(id) {
 
 function open_modal(){
 	console.log("Open Modal");
-	printCart();
+	// printCart();
 }
